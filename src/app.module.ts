@@ -14,6 +14,9 @@ import { Order } from './database/entities/order.entity';
 import { Product } from './database/entities/product.entity';
 import { SalesSummary } from './database/entities/sales-summary.entity';
 import { WalletTransaction } from './database/entities/wallet-transaction.entity';
+import { Discount } from './database/entities/discount.entity';
+import { DiscountAuditLog } from './database/entities/discount-audit-log.entity';
+import { FailedJob } from './database/entities/failed-job.entity';
 import { UsersModule } from './users/users.module';
 import { ProductsModule } from './products/products.module';
 import { CartModule } from './cart/cart.module';
@@ -23,6 +26,9 @@ import { WalletModule } from './wallet/wallet.module';
 import { HealthModule } from './health/health.module';
 import { MetricsModule } from './metrics/metrics.module';
 import { CacheModule } from './common/cache/cache.module';
+import { LockModule } from './common/lock/lock.module';
+import { DiscountsModule } from './discounts/discounts.module';
+import { LoggerModule } from './logger/logger.module';
 
 @Module({
     imports: [
@@ -61,6 +67,9 @@ import { CacheModule } from './common/cache/cache.module';
                     InventoryLog,
                     SalesSummary,
                     WalletTransaction,
+                    Discount,
+                    DiscountAuditLog,
+                    FailedJob,
                 ],
                 synchronize:
                     config.get<string>('TYPEORM_SYNC', 'true') === 'true',
@@ -70,6 +79,7 @@ import { CacheModule } from './common/cache/cache.module';
             }),
         }),
         CacheModule,
+        LockModule,
         AuthModule,
         UsersModule,
         ProductsModule,
@@ -79,6 +89,8 @@ import { CacheModule } from './common/cache/cache.module';
         WalletModule,
         HealthModule,
         MetricsModule,
+        DiscountsModule,
+        LoggerModule,
     ],
     providers: [
         // {

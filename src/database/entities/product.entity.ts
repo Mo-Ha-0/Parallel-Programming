@@ -6,6 +6,7 @@ import {
     OneToMany,
     PrimaryGeneratedColumn,
     UpdateDateColumn,
+    VersionColumn,
 } from 'typeorm';
 import { CartItem } from './cart-item.entity';
 import { InventoryLog } from './inventory-log.entity';
@@ -26,6 +27,7 @@ export class Product {
     @Column({ type: 'decimal', precision: 10, scale: 2 })
     price: string;
 
+    @Index()
     @Column({ type: 'int', default: 0 })
     stock: number;
 
@@ -35,6 +37,9 @@ export class Product {
 
     @UpdateDateColumn()
     updatedAt: Date;
+
+    @VersionColumn()
+    version: number;
 
     @OneToMany(() => CartItem, (item) => item.product)
     cartItems: CartItem[];
